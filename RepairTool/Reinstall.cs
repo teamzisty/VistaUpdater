@@ -1,0 +1,82 @@
+﻿using Ionic.Zip;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
+
+namespace RepairTool
+{
+    public partial class Reinstall : Form
+    {
+        public static bool dlRecovery = false;
+        public static string random = System.Web.Security.Membership.GeneratePassword(6, 1);
+        public static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery-" + random + ".zip";
+        public Reinstall(bool downloading = false)
+        {
+            dlRecovery = downloading;
+
+            InitializeComponent();
+        }
+
+        private void Reinstall_Load(object sender, EventArgs e)
+        {
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+
+            if (!dlRecovery)
+            {
+                listBox1.Items.Add("VistaUpdater を実行しています...");
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo.FileName = "C:\\Program Files\\VistaUpdater\\Application.exe";
+                listBox1.Items.Add("コマンド: " + p.StartInfo.FileName);
+                p.Start();
+                listBox1.Items.Add("VistaUpdater 回復ツールのプロセスを完了しました。");
+            } else
+            {
+                WebClient webClient = new WebClient();
+                Uri uri = new Uri("http://vistaupdater.net/tools/latest.zip");
+                webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+                webClient.DownloadFileAsync(uri, filePath);
+            }
+        }
+
+        private void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                MemoryStream ms = new MemoryStream();
+                StreamWriter sw = new StreamWriter(ms);
+
+                ReadOptions options = new ReadOptions();
+                options.StatusMessageWriter = sw;
+                ZipFile zf = ZipFile.Read(filePath, options);
+
+                zf.ExtractAll(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + random);
+
+                ms.Seek(0, 0);
+
+                EnterRecovery();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void EnterRecovery()
+        {
+            listBox1.Items.Add("VistaUpdater を実行しています...");
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + random + "VistaUpdater.exe";
+            listBox1.Items.Add("コマンド: " + p.StartInfo.FileName);
+            p.Start();
+            listBox1.Items.Add("VistaUpdater 回復ツールのプロセスを完了しました。");
+        }
+    }
+}
