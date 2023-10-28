@@ -5,6 +5,7 @@ using System.Data;
 using System.DirectoryServices;
 using System.Drawing;
 using System.IO;
+using System.Management;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -29,6 +30,10 @@ namespace VistaUpdater.SPInstaller
 
             WebClient wc1 = new WebClient();
             Uri sp1 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2008/04/windows6.0-kb936330-x64_12eed6cf0a842ce2a609c622b843afc289a8f4b9.exe");
+            if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
+            {
+                sp1 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2008/04/windows6.0-kb936330-x86_b8a3fa8f819269e37d8acde799e7a9aea3dd4529.exe");
+            }
             wc1.DownloadFileAsync(sp1, "C:\\Program Files\\VistaUpdater\\Update\\sp1.exe");
             wc1.DownloadFileCompleted += Wc1_DownloadFileCompleted;
             wc1.DownloadProgressChanged += Wc1_DownloadProgressChanged;

@@ -5,6 +5,7 @@ using System.Data;
 using System.DirectoryServices;
 using System.Drawing;
 using System.IO;
+using System.Management;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -31,8 +32,12 @@ namespace VistaUpdater.SPInstaller
             }
 
             WebClient wc1 = new WebClient();
-            Uri sp1 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2009/06/windows6.0-kb948465-x64_2eedca0bfa5ae8d1b0acf2117ddc4f15ac5183c9.exe");
-            wc1.DownloadFileAsync(sp1, "C:\\Program Files\\VistaUpdater\\Update\\sp2.exe");
+            Uri sp2 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2009/06/windows6.0-kb948465-x64_2eedca0bfa5ae8d1b0acf2117ddc4f15ac5183c9.exe");
+            if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
+            {
+                sp2 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2009/06/windows6.0-kb948465-x86_55f17352b4398ecb4f0cc20e3737631420ca1609.exe");
+            }
+            wc1.DownloadFileAsync(sp2, "C:\\Program Files\\VistaUpdater\\Update\\sp2.exe");
             wc1.DownloadFileCompleted += Wc1_DownloadFileCompleted;
             wc1.DownloadProgressChanged += Wc1_DownloadProgressChanged;
             listBox1.Items.Add("Windows Vista Service Pack 2 をダウンロードしています...");
