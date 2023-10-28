@@ -54,10 +54,14 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -81,6 +85,12 @@
     <Compile Include="RestartedUpdate.Designer.cs">
       <DependentUpon>RestartedUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="SPInstaller\SPInstaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SPInstaller\SPInstaller.Designer.cs">
+      <DependentUpon>SPInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="StartUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +113,9 @@
     <EmbeddedResource Include="RestartedUpdate.resx">
       <DependentUpon>RestartedUpdate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SPInstaller\SPInstaller.resx">
+      <DependentUpon>SPInstaller.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StartUpdate.resx">
       <DependentUpon>StartUpdate.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

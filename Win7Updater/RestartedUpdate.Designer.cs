@@ -33,6 +33,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.installStateText = new System.Windows.Forms.Label();
+            this.installState = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +64,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(12, 159);
+            this.listBox1.Location = new System.Drawing.Point(13, 233);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(493, 184);
             this.listBox1.TabIndex = 17;
@@ -78,12 +80,31 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "処理を実行しています...";
             // 
+            // installStateText
+            // 
+            this.installStateText.AutoSize = true;
+            this.installStateText.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.installStateText.Location = new System.Drawing.Point(9, 171);
+            this.installStateText.Name = "installStateText";
+            this.installStateText.Size = new System.Drawing.Size(63, 20);
+            this.installStateText.TabIndex = 23;
+            this.installStateText.Text = "準備中...";
+            // 
+            // installState
+            // 
+            this.installState.Location = new System.Drawing.Point(12, 194);
+            this.installState.Name = "installState";
+            this.installState.Size = new System.Drawing.Size(493, 33);
+            this.installState.TabIndex = 22;
+            // 
             // RestartedUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 356);
+            this.ClientSize = new System.Drawing.Size(517, 429);
             this.ControlBox = false;
+            this.Controls.Add(this.installStateText);
+            this.Controls.Add(this.installState);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBox1);
@@ -106,5 +127,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label installStateText;
+        private System.Windows.Forms.ProgressBar installState;
     }
 }
