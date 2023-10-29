@@ -202,7 +202,7 @@ namespace Win7Updater
 
             //Change Install State: Completed
             installStateText.Text = "完了";
-            installState.Value = 96;
+            installState.Value = 100;
 
             //Process Launching: shutdown
             System.Diagnostics.Process p = new System.Diagnostics.Process();

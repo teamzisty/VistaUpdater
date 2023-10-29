@@ -54,16 +54,6 @@ namespace VistaUpdater.SPInstaller
                     File.Delete("C:\\Program Files\\VistaUpdater\\Application.exe");
                     File.Copy(System.Windows.Forms.Application.ExecutablePath, "C:\\Program Files\\VistaUpdater\\Application.exe");
                 }
-
-                if (!File.Exists("C:\\Program Files\\VistaUpdater\\DotNetZip.dll"))
-                {
-                    File.Copy(Directory.GetCurrentDirectory() + "\\DotNetZip.dll", "C:\\Program Files\\VistaUpdater\\DotNetZip.dll");
-                }
-                else
-                {
-                    File.Delete("C:\\Program Files\\VistaUpdater\\DotNetZip.dll");
-                    File.Copy(Directory.GetCurrentDirectory() + "\\DotNetZip.dll", "C:\\Program Files\\VistaUpdater\\DotNetZip.dll");
-                }
             } catch (Exception ex)
             {
 
