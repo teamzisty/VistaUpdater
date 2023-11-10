@@ -58,13 +58,13 @@ namespace Win7Updater
 
             wc1.DownloadFileAsync(kb3133977, "C:\\Program Files\\Win7Updater\\Update\\kb3133977.msu");
             wc1.DownloadFileCompleted += Wc1_DownloadFileCompleted;
-            listBox1.Items.Add("Windows 7 for x64-Based Systems 用更新プログラム (KB3133977) をダウンロードしています...");
+            listBox1.Items.Add("Windows 7 用更新プログラム (KB3133977) をダウンロードしています...");
             wc2.DownloadFileAsync(kb4490628, "C:\\Program Files\\Win7Updater\\Update\\kb4490628.msu");
             wc2.DownloadFileCompleted += Wc2_DownloadFileCompleted;
-            listBox1.Items.Add("2019-03x64 ベース システム用 Windows 7 サービス スタック更新プログラム (KB4490628) をダウンロードしています...");
+            listBox1.Items.Add("2019-03 Windows 7 サービス スタック更新プログラム (KB4490628) をダウンロードしています...");
             wc3.DownloadFileAsync(kb4474419, "C:\\Program Files\\Win7Updater\\Update\\kb4474419.msu");
             wc3.DownloadFileCompleted += Wc3_DownloadFileCompleted;
-            listBox1.Items.Add("2019-09 x64 ベース システム用 Windows 7 のセキュリティ更新プログラム (KB4474419) をダウンロードしています...");
+            listBox1.Items.Add("2019-09 Windows 7 のセキュリティ更新プログラム (KB4474419) をダウンロードしています...");
 
             if (!File.Exists("C:\\Program Files\\Win7Updater\\Application.exe"))
             {
@@ -106,7 +106,7 @@ namespace Win7Updater
 
         private void p_Exited(object sender, EventArgs e)
         {
-            listBox1.Items.Add("Windows 7 for x64-Based Systems 用更新プログラム (KB3133977) のインストールが完了しました");
+            listBox1.Items.Add("Windows 7 用更新プログラム (KB3133977) のインストールが完了しました");
 
             //Process Launching: KB4490628
             System.Diagnostics.Process p = new System.Diagnostics.Process();
@@ -127,7 +127,7 @@ namespace Win7Updater
 
         private void P2_Exited(object sender, EventArgs e)
         {
-            listBox1.Items.Add("2019-03x64 ベース システム用 Windows 7 サービス スタック更新プログラム (KB4490628) のインストールが完了しました");
+            listBox1.Items.Add("2019-03 Windows 7 サービス スタック更新プログラム (KB4490628) のインストールが完了しました");
 
             //Process Launching: KB4474419
             System.Diagnostics.Process p = new System.Diagnostics.Process();
@@ -216,11 +216,11 @@ namespace Win7Updater
             if (e.Error != null)
             {
                 listBox1.Items.Add(e.Error.ToString());
-                listBox1.Items.Add("2019-09 x64 ベース システム用 Windows 7 のセキュリティ更新プログラム (KB4474419) のダウンロードに失敗...");
+                listBox1.Items.Add("2019-09 Windows 7 のセキュリティ更新プログラム (KB4474419) のダウンロードに失敗...");
             }
             else
             {
-                listBox1.Items.Add("2019-09 x64 ベース システム用 Windows 7 のセキュリティ更新プログラム (KB4474419) のダウンロードに成功！");
+                listBox1.Items.Add("2019-09 Windows 7 のセキュリティ更新プログラム (KB4474419) のダウンロードに成功！");
                 u3ended = true;
             }
         }
@@ -229,11 +229,11 @@ namespace Win7Updater
         {
             if (e.Error != null)
             {
-                listBox1.Items.Add("2019-03x64 ベース システム用 Windows 7 サービス スタック更新プログラム (KB4490628) のダウンロードに失敗...");
+                listBox1.Items.Add("2019-03 Windows 7 サービス スタック更新プログラム (KB4490628) のダウンロードに失敗...");
             }
             else
             {
-                listBox1.Items.Add("2019-03x64 ベース システム用 Windows 7 サービス スタック更新プログラム (KB4490628) のダウンロードに成功！");
+                listBox1.Items.Add("2019-03 Windows 7 サービス スタック更新プログラム (KB4490628) のダウンロードに成功！");
                 u2ended = true;
             }
         }
@@ -242,11 +242,11 @@ namespace Win7Updater
         {
             if (e.Error != null)
             {
-                listBox1.Items.Add("Windows 7 for x64-Based Systems 用更新プログラム (KB3133977) のダウンロードに失敗...");
+                listBox1.Items.Add("Windows 7 用更新プログラム (KB3133977) のダウンロードに失敗...");
             }
             else
             {
-                listBox1.Items.Add("Windows 7 for x64-Based Systems 用更新プログラム (KB3133977) のダウンロードに成功！");
+                listBox1.Items.Add("Windows 7 用更新プログラム (KB3133977) のダウンロードに成功！");
                 u1ended = true;
             }
         }

@@ -370,7 +370,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
                 label2.Text = "再起動しています...";
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
                 p.StartInfo.FileName = "shutdown.exe";
-                p.StartInfo.Arguments = "/r /t 10 /c \"Vista Updater の処理を続けるため、10秒後に再起動します。\"";
+                p.StartInfo.Arguments = "/r /t 10 /c \"VistaUpdater の処理を続けるため、10秒後に再起動します。\"";
                 p.Start();
                 ChangeInstallState("完了", 100);
             }

@@ -43,7 +43,7 @@ namespace Win7Updater.SPInstaller
             Uri sp1 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe");
             if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
             {
-                sp1 = new Uri("https://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x86_c3516bc5c9e69fee6d9ac4f981f5b95977a8a2fa.exe");
+                sp1 = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x86_c3516bc5c9e69fee6d9ac4f981f5b95977a8a2fa.exe");
             }
             wc1.DownloadFileAsync(sp1, "C:\\Program Files\\Win7Updater\\Update\\sp1.exe");
             wc1.DownloadProgressChanged += Wc1_DownloadProgressChanged;

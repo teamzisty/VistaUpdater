@@ -109,7 +109,7 @@ namespace VistaUpdater
                     label2.Text = "再起動しています...";
                     System.Diagnostics.Process p = new System.Diagnostics.Process();
                     p.StartInfo.FileName = "shutdown.exe";
-                    p.StartInfo.Arguments = "/r /t 0 /c \"Vista Updater の処理を続行するため、再起動します。\"";
+                    p.StartInfo.Arguments = "/r /t 0 /c \"VistaUpdater の処理を続行するため、再起動します。\"";
                     p.Start();
                 }
             }

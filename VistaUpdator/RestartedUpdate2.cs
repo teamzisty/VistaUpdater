@@ -68,7 +68,10 @@ namespace VistaUpdater
                 p.SynchronizingObject = this;
                 p.StartInfo.FileName = "wusa.exe";
                 p.Exited += p_Exited;
-                listBox1.Items.Add("用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...");
+
+                installStateText.Text = "Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...";
+
+                listBox1.Items.Add("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...");
                 listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
                 p.Start();
             }
@@ -76,7 +79,10 @@ namespace VistaUpdater
 
         private void p_Exited(object sender, EventArgs e)
         {
-            listBox1.Items.Add("用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしました");
+            installState.Value = 33;
+            installStateText.Text = "Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をインストールしています...";
+
+            listBox1.Items.Add("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしました");
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.Arguments = "\"C:\\Program Files\\VistaUpdater\\Update\\kb4493730.msu\" /quiet /norestart";
             p.EnableRaisingEvents = true;
@@ -90,6 +96,9 @@ namespace VistaUpdater
 
         private void p2_Exited(object sender, EventArgs e)
         {
+            installStateText.Text = "2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をインストールしています...";
+            installState.Value = 66;
+
             listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をインストールしました");
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.Arguments = "\"C:\\Program Files\\VistaUpdater\\Update\\kb4474419.msu\" /quiet /norestart";
@@ -104,6 +113,9 @@ namespace VistaUpdater
 
         private void p3_Exited(object sender, EventArgs e)
         {
+            installState.Value = 96;
+            installStateText.Text = "最終処理を実行中...";
+
             listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をインストールしました");
             label2.Text = "最終処理の実行中...";
             listBox1.Items.Add("Shellの設定中...");
@@ -116,8 +128,11 @@ namespace VistaUpdater
             label2.Text = "再起動しています...";
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = "shutdown.exe";
-            p.StartInfo.Arguments = "/r /t 10 /c \"Vista Updater の処理を続行するため、10秒後に再起動します。\"";
+            p.StartInfo.Arguments = "/r /t 10 /c \"VistaUpdater の処理を続行するため、10秒後に再起動します。\"";
             p.Start();
+
+            installStateText.Text = "完了";
+            installState.Value = 100;
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
