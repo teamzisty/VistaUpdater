@@ -40,7 +40,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(39, 9);
+            this.label1.Location = new System.Drawing.Point(73, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(357, 31);
             this.label1.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("メイリオ", 10.75F);
-            this.label2.Location = new System.Drawing.Point(59, 40);
+            this.label2.Location = new System.Drawing.Point(95, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(316, 46);
             this.label2.TabIndex = 1;
@@ -60,7 +60,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(302, 124);
+            this.button1.Location = new System.Drawing.Point(365, 127);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(151, 44);
             this.button1.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(12, 153);
+            this.label3.Location = new System.Drawing.Point(12, 151);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(130, 18);
             this.label3.TabIndex = 3;
@@ -82,7 +82,7 @@
             // check_sp
             // 
             this.check_sp.AutoSize = true;
-            this.check_sp.Location = new System.Drawing.Point(12, 129);
+            this.check_sp.Location = new System.Drawing.Point(12, 127);
             this.check_sp.Name = "check_sp";
             this.check_sp.Size = new System.Drawing.Size(249, 21);
             this.check_sp.TabIndex = 4;
@@ -95,7 +95,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(12, 102);
+            this.checkBox1.Location = new System.Drawing.Point(12, 100);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(147, 21);
             this.checkBox1.TabIndex = 5;
@@ -107,7 +107,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 180);
+            this.ClientSize = new System.Drawing.Size(528, 190);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.check_sp);
             this.Controls.Add(this.label3);

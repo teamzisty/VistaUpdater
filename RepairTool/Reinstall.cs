@@ -40,7 +40,7 @@ namespace RepairTool
             } else
             {
                 WebClient webClient = new WebClient();
-                Uri uri = new Uri("http://vistaupdater.net/tools/latest.zip");
+                Uri uri = new Uri("http://vistaupdater.net/tools/VistaUpdater-v1.3.4.exe");
                 webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
                 webClient.DownloadFileAsync(uri, filePath);
             }
@@ -50,33 +50,17 @@ namespace RepairTool
         {
             try
             {
-                MemoryStream ms = new MemoryStream();
-                StreamWriter sw = new StreamWriter(ms);
-
-                ReadOptions options = new ReadOptions();
-                options.StatusMessageWriter = sw;
-                ZipFile zf = ZipFile.Read(filePath, options);
-
-                zf.ExtractAll(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + random);
-
-                ms.Seek(0, 0);
-
-                EnterRecovery();
+                listBox1.Items.Add("VistaUpdater を実行しています...");
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + random + "VistaUpdater.exe";
+                listBox1.Items.Add("コマンド: " + p.StartInfo.FileName);
+                p.Start();
+                listBox1.Items.Add("VistaUpdater 回復ツールのプロセスを完了しました。");
             }
             catch (Exception)
             {
-
+                listBox1.Items.Add("VistaUpdater 回復ツールのプロセスを完了できませんでした。");
             }
-        }
-
-        private void EnterRecovery()
-        {
-            listBox1.Items.Add("VistaUpdater を実行しています...");
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + random + "VistaUpdater.exe";
-            listBox1.Items.Add("コマンド: " + p.StartInfo.FileName);
-            p.Start();
-            listBox1.Items.Add("VistaUpdater 回復ツールのプロセスを完了しました。");
         }
     }
 }

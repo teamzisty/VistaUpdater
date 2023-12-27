@@ -72,7 +72,7 @@ namespace VistaUpdater
                 installStateText.Text = "Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...";
 
                 listBox1.Items.Add("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...");
-                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
                 p.Start();
             }
         }
@@ -90,7 +90,7 @@ namespace VistaUpdater
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += p2_Exited;
             listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をインストールしています...");
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 
@@ -107,7 +107,7 @@ namespace VistaUpdater
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += p3_Exited;
             listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をインストールしています...");
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 

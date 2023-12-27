@@ -103,7 +103,7 @@ namespace Win7Updater.SPInstaller
             } else
             {
                 //Change Install State (First only)
-                label2.Text = "アップデートをインストール中...";
+                label2.Text = "Service Pack をインストール中...";
                 listBox1.Items.Add("Windows 7 Service Pack 1 のダウンロードに成功！");
                 listBox1.Items.Add("Windows 7 Service Pack 1 をインストールしています...");
                 downloadStateText.Text = "完了";
@@ -114,13 +114,13 @@ namespace Win7Updater.SPInstaller
 
                 //Process Launching: Service Pack 1
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo.FileName = "wusa.exe";
-                p.StartInfo.Arguments = "\"C:\\Program Files\\Win7Updater\\Update\\sp1.exe\" /quiet /nodialog /norestart";
+                p.StartInfo.FileName = "C:\\Program Files\\Win7Updater\\Update\\sp1.exe";
+                p.StartInfo.Arguments = "/quiet /nodialog /norestart";
                 p.EnableRaisingEvents = true;
                 p.SynchronizingObject = this;
                 p.Exited += p_Exited;
 
-                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + p.StartInfo.Arguments);
+                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
 
                 p.Start();
             }

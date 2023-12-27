@@ -113,7 +113,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartUpdate";
-            this.Text = "Win7Updater - v1.0.0 - インストール中...";
+            this.Text = "Win7Updater - インストール中...";
             this.Load += new System.EventHandler(this.StartUpdate_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

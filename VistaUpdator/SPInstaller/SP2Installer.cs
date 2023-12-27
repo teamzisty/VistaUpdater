@@ -158,7 +158,10 @@ namespace VistaUpdater.SPInstaller
             regkey.Close();
             Microsoft.Win32.RegistryKey regkey1 =
                 Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
-            regkey1.DeleteValue("SP1Installed");
+            try
+            {
+                regkey1.DeleteValue("SP1Installed");
+            } catch (Exception) { }
             regkey1.SetValue("SP2Installed", 1, Microsoft.Win32.RegistryValueKind.QWord);
             regkey1.Close();
             Microsoft.Win32.RegistryKey regkey2 =

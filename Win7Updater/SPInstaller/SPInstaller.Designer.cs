@@ -44,7 +44,7 @@
             // 
             this.installStateText.AutoSize = true;
             this.installStateText.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.installStateText.Location = new System.Drawing.Point(12, 242);
+            this.installStateText.Location = new System.Drawing.Point(12, 218);
             this.installStateText.Name = "installStateText";
             this.installStateText.Size = new System.Drawing.Size(63, 20);
             this.installStateText.TabIndex = 27;
@@ -52,7 +52,7 @@
             // 
             // installState
             // 
-            this.installState.Location = new System.Drawing.Point(9, 267);
+            this.installState.Location = new System.Drawing.Point(8, 241);
             this.installState.Name = "installState";
             this.installState.Size = new System.Drawing.Size(493, 33);
             this.installState.TabIndex = 26;
@@ -71,11 +71,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("メイリオ", 10.75F);
-            this.label2.Location = new System.Drawing.Point(5, 138);
+            this.label2.Location = new System.Drawing.Point(5, 136);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(235, 23);
+            this.label2.Size = new System.Drawing.Size(243, 23);
             this.label2.TabIndex = 24;
-            this.label2.Text = "アップデートをダウンロード中...";
+            this.label2.Text = "Service Pack をダウンロード中...";
             // 
             // listBox1
             // 
@@ -83,7 +83,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(8, 308);
+            this.listBox1.Location = new System.Drawing.Point(8, 291);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(493, 184);
             this.listBox1.TabIndex = 23;
@@ -103,7 +103,7 @@
             // 
             this.downloadStateText.AutoSize = true;
             this.downloadStateText.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.downloadStateText.Location = new System.Drawing.Point(12, 172);
+            this.downloadStateText.Location = new System.Drawing.Point(12, 159);
             this.downloadStateText.Name = "downloadStateText";
             this.downloadStateText.Size = new System.Drawing.Size(63, 20);
             this.downloadStateText.TabIndex = 29;
@@ -111,7 +111,7 @@
             // 
             // downloadState
             // 
-            this.downloadState.Location = new System.Drawing.Point(8, 195);
+            this.downloadState.Location = new System.Drawing.Point(8, 182);
             this.downloadState.Name = "downloadState";
             this.downloadState.Size = new System.Drawing.Size(493, 33);
             this.downloadState.TabIndex = 28;
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 504);
+            this.ClientSize = new System.Drawing.Size(517, 490);
             this.ControlBox = false;
             this.Controls.Add(this.downloadStateText);
             this.Controls.Add(this.downloadState);

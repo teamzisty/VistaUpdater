@@ -28,11 +28,11 @@ namespace Win7Updater
             System.OperatingSystem os = System.Environment.OSVersion;
             if (os.ServicePack == "Service Pack 1")
             {
-                new StartUpdate().ShowDialog();
+                new StartUpdate().Show();
                 this.Hide();
             } else
             {
-                new SPInstaller.SPInstaller().ShowDialog();
+                new SPInstaller.SPInstaller().Show();
                 this.Hide();
             }
         }

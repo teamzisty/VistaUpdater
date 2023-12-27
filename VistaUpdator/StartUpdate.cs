@@ -227,7 +227,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
                 p.StartInfo.FileName = "wusa.exe";
                 p.Exited += p_Exited;
                 ChangeInstallState("Windows Vista 用セキュリティ更新プログラム (KB3205638) をインストールしています...", 8);
-                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
                 p.Start();
             }
         }
@@ -242,7 +242,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += P2_Exited;
             ChangeInstallState("Windows Vista 用セキュリティ更新プログラム (KB4012583) をインストールしています...", 16);
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 
@@ -256,7 +256,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += P3_Exited;
             ChangeInstallState("Windows Vista 用セキュリティ更新プログラム (KB4019204) をインストールしています...", 32);
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 
@@ -270,7 +270,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += P4_Exited;
             ChangeInstallState("Windows Vista 用セキュリティ更新プログラム (KB4015380) をインストールしています...", 48);
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 
@@ -284,7 +284,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += P5_Exited;
             ChangeInstallState("Windows Vista 用セキュリティ更新プログラム (KB971512) をインストールしています...", 48);
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 
@@ -298,7 +298,7 @@ Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
             p.StartInfo.FileName = "wusa.exe";
             p.Exited += P6_Exited;
             ChangeInstallState("Windows Vista 用プラットフォーム更新プログラム補足 (KB2117917) をインストールしています...", 64);
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
             p.Start();
         }
 

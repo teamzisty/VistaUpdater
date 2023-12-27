@@ -30,89 +30,18 @@ namespace Win7Updater
             this.MinimumSize = this.Size;
 
             WebClient wc1 = new WebClient();
-            WebClient wc2 = new WebClient();
             Uri kb3125574 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x64_2dafb1d203c8964239af3048b5dd4b1264cd93b9.msu");
-            Uri kb3177467 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2018/09/windows6.1-kb3177467-v2-x64_b9df2405e7e034e3ffda160fff99a36ab96ba187.msu");
             if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
             {
                 kb3125574 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2016/05/windows6.1-kb3125574-v4-x86_ba1ff5537312561795cc04db0b02fbb0a74b2cbd.msu");
-                kb3177467 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/crup/2018/09/windows6.1-kb3177467-v2-x86_abd69a188878d93212486213990c8caab4d6ae57.msu");
             }
             wc1.DownloadFileAsync(kb3125574, "C:\\Program Files\\Win7Updater\\Update\\kb3125574.msu");
             wc1.DownloadFileCompleted += Wc1_DownloadFileCompleted;
             listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) をダウンロードしています...");
-            wc2.DownloadFileAsync(kb3125574, "C:\\Program Files\\Win7Updater\\Update\\kb3177467.msu");
-            wc2.DownloadFileCompleted += Wc2_DownloadFileCompleted;
-            listBox1.Items.Add("2018-10 Windows 7 更新プログラム (KB3177467) をダウンロードしています...");
 
-            timer.Tick += Timer_Tick;
-            timer.Interval = 100;
-            timer.Start();
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (u1ended & u2ended)
-            {
-                label2.Text = "アップデートをインストール中...";
-                timer.Stop();
-
-                listBox1.Items.Add("ダウンロードに成功しました！");
-                listBox1.Items.Add("インストールを開始...");
-
-                //Process Launching: KB3177467 (Optimize SSU Requirement)
-                System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo.Arguments = "\"C:\\Program Files\\Win7Updater\\Update\\kb3177467.msu\" /quiet /norestart";
-                p.EnableRaisingEvents = true;
-                p.SynchronizingObject = this;
-                p.StartInfo.FileName = "wusa.exe";
-                p.Exited += p_Exited;
-
-                //Change Install State: KB3177467
-                installStateText.Text = "2018-10 Windows 7 更新プログラム (KB3177467) をインストールしています...";
-                installState.Value = 0;
-
-                listBox1.Items.Add("2018-10 Windows 7 更新プログラム (KB3177467) をインストールしています...");
-                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
-                p.Start();
-            }
-        }
-
-        private void Wc2_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) のダウンロードに失敗...");
-            }
-            else
-            {
-                listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) のダウンロードに成功！");
-                u2ended = true;
-            }
-
-        }
-
-        private void p_Exited(object sender, EventArgs e)
-        {
-            listBox1.Items.Add("2018-10 Windows 7 更新プログラム (KB3177467) をインストールしました");
-
-            //Process Launching: KB3125574 (Optimize SSU / SP2)
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.Arguments = "\"C:\\Program Files\\Win7Updater\\Update\\kb3125574.msu\" /quiet /norestart";
-            p.EnableRaisingEvents = true;
-            p.SynchronizingObject = this;
-            p.StartInfo.FileName = "wusa.exe";
-            p.Exited += p2_Exited;
-
-            //Change Install State: KB3125574
-            installStateText.Text = "Windows 7 用更新プログラム (KB3125574) をインストールしています...";
+            //Change Install State: Wait
+            installStateText.Text = "準備中...";
             installState.Value = 0;
-
-            listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) をインストールしています...");
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.Arguments);
-            p.Start();
-
-            
         }
 
         private void p2_Exited(object sender, EventArgs e)
@@ -192,15 +121,26 @@ namespace Win7Updater
 
         private void Wc1_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (e.Error != null)
-            {
-                listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) のダウンロードに失敗...");
-            }
-            else
-            {
-                listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) のダウンロードに成功！");
-                u1ended = true;
-            }
+            label2.Text = "アップデートをインストール中...";
+
+            listBox1.Items.Add("ダウンロードに成功しました！");
+            listBox1.Items.Add("インストールを開始...");
+
+            //Process Launching: KB3125574 (Optimize SSU / SP2)
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.Arguments = "\"C:\\Program Files\\Win7Updater\\Update\\kb3125574.msu\" /quiet /norestart";
+            p.EnableRaisingEvents = true;
+            p.SynchronizingObject = this;
+            p.StartInfo.FileName = "wusa.exe";
+            p.Exited += p2_Exited;
+
+            //Change Install State: KB3125574
+            installStateText.Text = "Windows 7 用更新プログラム (KB3125574) をインストールしています...";
+            installState.Value = 0;
+
+            listBox1.Items.Add("Windows 7 用更新プログラム (KB3125574) をインストールしています...");
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
+            p.Start();
         }
     }
 }
