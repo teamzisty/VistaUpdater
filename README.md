@@ -5,7 +5,7 @@ VistaUpdaterおよびWin7Updaterのソースコードです。
 - Visual Studio 2022 (.NET デスクトップ開発のワークロード)
 - .NET Framework v3.0 (Windowsの機能からインストール)
 ## コードを改善/問題の報告
-<a href="REPORT.md>REPORT.md</a>を確認してください。
+[REPORT.md](REPORT.md)を確認してください。Pull requestsはすべて閉じます。
 
 ----
 
