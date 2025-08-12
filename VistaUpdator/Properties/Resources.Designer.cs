@@ -63,9 +63,9 @@ namespace VistaUpdater.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
-        internal static byte[] Vista_SHA2_WUC {
+        internal static byte[] wsus_proxy {
             get {
-                object obj = ResourceManager.GetObject("Vista_SHA2_WUC", resourceCulture);
+                object obj = ResourceManager.GetObject("wsus_proxy", resourceCulture);
                 return ((byte[])(obj));
             }
         }

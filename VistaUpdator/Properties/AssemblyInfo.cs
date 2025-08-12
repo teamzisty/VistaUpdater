@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("VistaUpdater")]
 [assembly: AssemblyDescription("Windows Vistaを更新できるようにするツール")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("UpLauncher | raisandesu")]
+[assembly: AssemblyCompany("UpLauncher")]
 [assembly: AssemblyProduct("VistaUpdater")]
-[assembly: AssemblyCopyright("Copyright ©  2023 UpLauncher")]
+[assembly: AssemblyCopyright("Copyright ©  2024 UpLauncher")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.4.0")]
-[assembly: AssemblyFileVersion("1.3.4.0")]
+[assembly: AssemblyVersion("1.3.6.0")]
+[assembly: AssemblyFileVersion("1.3.6.0")]

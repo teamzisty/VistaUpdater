@@ -46,5 +46,10 @@ namespace RepairTool
             new Repair().ShowDialog();
             this.Hide();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

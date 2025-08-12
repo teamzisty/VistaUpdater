@@ -66,48 +66,76 @@ namespace VistaUpdater
             process.SynchronizingObject = this;
             process.Exited += Process_Exited;
             ChangeInstallState("Windows Vista 用 Windows Internet Explorer 9 をインストールしています...", 25);
-            listBox1.Items.Add("コマンドの実行: " + process.StartInfo.Arguments);
+            listBox1.Items.Add("コマンドの実行: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
             process.Start();
         }
 
         private void Process_Exited(object sender, EventArgs e)
         {
             listBox1.Items.Add("Windows Vista 用 Windows Internet Explorer 9 をインストールしました");
+
+            Uri ie9lp = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/updt/2011/03/ie9-langpack-windowsvista-x64-jpn_331d32d2b458301c359cb95b639425ff2dbaf2a1.exe");
+            if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
+            {
+                ie9lp = new Uri("http://catalog.s.download.windowsupdate.com/msdownload/update/software/updt/2011/03/ie9-langpack-windowsvista-x86-jpn_8400e4ecbbb1fb4b40e37ec852f2324e7da0adda.exe");
+            }
+            WebClient wc = new WebClient();
+            wc.DownloadFileAsync(ie9lp, "C:\\Program Files\\VistaUpdater\\Update\\ie9lp.exe");
+            ChangeDownloadState("Windows Vista 用 Windows Internet Explorer 9 言語パックをダウンロードしています...", 25);
+            wc.DownloadFileCompleted += Wc3_DownloadFileCompleted;
+        }
+
+        private void Wc3_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            ChangeDownloadState("Windows Vista 用 Windows Internet Explorer 9 言語パック をダウンロードしました", 50);
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = "C:\\Program Files\\VistaUpdater\\Update\\ie9lp.exe";
+            process.StartInfo.Arguments = "/quiet /norestart";
+            process.EnableRaisingEvents = true;
+            process.SynchronizingObject = this;
+            process.Exited += Process3_Exited;
+            ChangeInstallState("Windows Vista 用 Windows Internet Explorer 9 言語パック をインストールしています...", 25);
+            listBox1.Items.Add("コマンドの実行: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
+            process.Start();
+        }
+
+        private void Process3_Exited(object sender, EventArgs e)
+        {
             GoNext();
         }
 
         private void GoNext()
         {
-            label2.Text = "Windows Update Agent のインストール";
+            label2.Text = "更新プログラムをインストールしています...";
 
-            Uri wuagent = new Uri("http://archive.org/download/windows-update-agent-7.6/WindowsUpdateAgent-7.6-x64.exe");
+            Uri kb4014661 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2017/04/ie9-windows6.0-kb4014661-x64_b0fd6aaf25578ac22e771e9420fb691845cc3c90.msu");
             if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
             {
-                wuagent = new Uri("http://archive.org/download/windows-update-agent-7.6/WindowsUpdateAgent-7.6-x86.exe");
+                kb4014661 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2017/04/ie9-windows6.0-kb4014661-x86_41c4885409c1e7712495cda5067389e9d58be7e7.msu");
             }
             WebClient wc = new WebClient();
-            wc.DownloadFileAsync(wuagent, "C:\\Program Files\\VistaUpdater\\Update\\wuagent.exe");
-            ChangeDownloadState("Windows Update Agent 7.6 をダウンロードしています...", 75);
+            wc.DownloadFileAsync(kb4014661, "C:\\Program Files\\VistaUpdater\\Update\\kb4014661.msu");
+            ChangeDownloadState("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4014661) をダウンロードしています...", 75);
             wc.DownloadFileCompleted += Wc2_DownloadFileCompleted;
         }
 
         private void Wc2_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            ChangeDownloadState("Windows Update Agent 7.6 をダウンロードしました", 100);
+            ChangeDownloadState("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4014661) をダウンロードしました", 100);
             System.Diagnostics.Process process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = "C:\\Program Files\\VistaUpdater\\Update\\wuagent.exe";
-            process.StartInfo.Arguments = "/quiet /norestart";
+            process.StartInfo.Arguments = "\"C:\\Program Files\\VistaUpdater\\Update\\kb4014661.msu\" /quiet /norestart";
             process.EnableRaisingEvents = true;
             process.SynchronizingObject = this;
+            process.StartInfo.FileName = "wusa.exe";
             process.Exited += Process2_Exited;
-            ChangeInstallState("Windows Update Agent 7.6 をインストールしています...", 75);
-            listBox1.Items.Add("コマンドの実行: " + process.StartInfo.Arguments);
+            ChangeInstallState("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4014661) をインストールしています...", 75);
+            listBox1.Items.Add("コマンドの実行: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
             process.Start();
         }
 
         private void Process2_Exited(object sender, EventArgs e)
         {
-            ChangeInstallState("Windows Update Agent 7.6 をインストールしました。", 95);
+            ChangeInstallState("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4014661) をインストールしました", 95);
             ChangeInstallState("最終処理を実行中...", 95);
             label2.Text = "最終処理の実行中...";
             listBox1.Items.Add("Shellの設定中...");

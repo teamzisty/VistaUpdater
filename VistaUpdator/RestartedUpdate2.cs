@@ -9,6 +9,11 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Management;
+using System.IO;
+using System.Reflection;
+using Ionic.Zip;
+using Microsoft.Win32;
+using System.DirectoryServices;
 
 namespace VistaUpdater
 {
@@ -25,6 +30,9 @@ namespace VistaUpdater
         bool u2ended = false;
         bool u3ended = false;
 
+        string output = "";
+        string extractPath = "C:\\Program Files\\VistaUpdaterAfter";
+
         private void RestartedUpdate2_Load(object sender, EventArgs e)
         {
             this.MinimumSize = this.Size;
@@ -32,151 +40,182 @@ namespace VistaUpdater
             WebClient wc = new WebClient();
             WebClient wc2 = new WebClient();
             WebClient wc3 = new WebClient();
-            Uri kb4018271 = new Uri("http://catalog.s.download.windowsupdate.com/c/csa/csa/secu/2017/05/ie9-windows6.0-kb4018271-x64-custom_03cc4a6e57cecbe73ea5c9f45dc90a0cfe15eecb.msu");
-            Uri kb4493730 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2019/04/windows6.0-kb4493730-x64_5cb91f4e9000383f061b80f88feffdf228c2443c.msu");
-            Uri kb4474419 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2019/09/windows6.0-kb4474419-v4-x64_09cb148f6ef10779d7352b7269d66a7f23019207.msu");
-            if ((ushort)new ManagementObject("Win32_Processor.DeviceID='CPU0'")["AddressWidth"] == 32)
-            {
-                kb4018271 = new Uri("http://catalog.s.download.windowsupdate.com/c/csa/csa/secu/2017/05/ie9-windows6.0-kb4018271-x86-custom_cd47df4c2de16304e79a9bb03da882180182c3db.msu");
-                kb4493730 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2019/04/windows6.0-kb4493730-x86_ab4368f19db796680ff445a7769886c4cdc009a0.msu");
-                kb4474419 = new Uri("http://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2019/09/windows6.0-kb4474419-v4-x86_fd568cb47870cd8ed5ba10e1dd3c49061894030e.msu");
-            }
-            wc.DownloadFileAsync(kb4018271, "C:\\Program Files\\VistaUpdater\\Update\\kb4018271.msu");
-            listBox1.Items.Add("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をダウンロードしています...");
+            Uri vcRedist = new Uri("http://download.microsoft.com/download/C/A/F/CAF5E118-4803-4D68-B6B5-A1772903D119/VSU4/vcredist_x86.exe");
+            wc.DownloadFileAsync(vcRedist, "C:\\Program Files\\VistaUpdater\\Update\\vcredist.exe");
+            listBox1.Items.Add("Visual Studio 2012 Visual C++ 再頒布可能パッケージ をダウンロードしています...");
             wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
-            wc2.DownloadFileAsync(kb4493730, "C:\\Program Files\\VistaUpdater\\Update\\kb4493730.msu");
-            listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をダウンロードしています...");
-            wc2.DownloadFileCompleted += Wc2_DownloadFileCompleted;
-            wc3.DownloadFileAsync(kb4474419, "C:\\Program Files\\VistaUpdater\\Update\\kb4474419.msu");
-            listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をダウンロードしています...");
-            wc3.DownloadFileCompleted += Wc3_DownloadFileCompleted;
-            timer.Tick += Timer_Tick;
-            timer.Interval = 100;
-            timer.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (u1ended & u2ended & u3ended)
-            {
-                timer.Stop();
-                listBox1.Items.Add("ダウンロードに成功しました！");
-                listBox1.Items.Add("インストールを開始...");
-                System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo.Arguments = "\"C:\\Program Files\\VistaUpdater\\Update\\kb4018271.msu\" /quiet /norestart";
-                p.EnableRaisingEvents = true;
-                p.SynchronizingObject = this;
-                p.StartInfo.FileName = "wusa.exe";
-                p.Exited += p_Exited;
-
-                installStateText.Text = "Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...";
-
-                listBox1.Items.Add("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしています...");
-                listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
-                p.Start();
-            }
-        }
 
         private void p_Exited(object sender, EventArgs e)
         {
             installState.Value = 33;
-            installStateText.Text = "Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をインストールしています...";
+            installStateText.Text = "WSUS Proxy をインストールしています... 1/2";
 
-            listBox1.Items.Add("Windows Vista 用 Internet Explorer 9 の累積的なセキュリティ更新プログラム (KB4018271) をインストールしました");
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.Arguments = "\"C:\\Program Files\\VistaUpdater\\Update\\kb4493730.msu\" /quiet /norestart";
-            p.EnableRaisingEvents = true;
-            p.SynchronizingObject = this;
-            p.StartInfo.FileName = "wusa.exe";
-            p.Exited += p2_Exited;
-            listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をインストールしています...");
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
-            p.Start();
+            listBox1.Items.Add("Visual Studio 2012 Visual C++ 再頒布可能パッケージ をインストールしました");
+
+            System.IO.Directory.CreateDirectory("C:\\Program Files\\VistaUpdater\\Patches");
+            Extract("VistaUpdater", "C:\\Program Files\\VistaUpdater\\Patches", "Resources", "wsus_proxy.zip");
+
+
+
+            next();
+        }
+
+        private void next()
+        {
+            try
+            {
+                MemoryStream ms = new MemoryStream();
+                StreamWriter sw = new StreamWriter(ms);
+
+                ReadOptions options = new ReadOptions();
+                options.StatusMessageWriter = sw;
+                ZipFile zf = ZipFile.Read("C:\\Program Files\\VistaUpdater\\Patches\\wsus_proxy.zip", options);
+
+                zf.ExtractAll(extractPath);
+
+                ms.Seek(0, 0);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            timer = new Timer();
+            timer.Interval = 3000; // 3000ミリ秒（3秒）
+            timer.Tick += Timer_Tick;
+
+            // タイマーの開始
+            timer.Start();
+
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "C:\\Program Files\\VistaUpdaterAfter\\Add_wsus.cmd";
+
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.EnableRaisingEvents = true;
+            proc.SynchronizingObject = this;
+            proc.Exited += p2_Exited;
+            proc.Start();
+            output = proc.StandardOutput.ReadToEnd();
+        }
+
+        public static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
+        {
+            Assembly assembly = Assembly.GetCallingAssembly();
+
+            using (Stream s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFilePath == "" ? "" : internalFilePath + ".") + resourceName))
+            using (BinaryReader r = new BinaryReader(s))
+            using (FileStream fs = new FileStream(outDirectory + "\\" + resourceName, FileMode.OpenOrCreate))
+            using (BinaryWriter w = new BinaryWriter(fs))
+            {
+                w.Write(r.ReadBytes((int)s.Length));
+            }
         }
 
         private void p2_Exited(object sender, EventArgs e)
         {
-            installStateText.Text = "2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をインストールしています...";
+            installStateText.Text = "WSUS Proxy をインストールしています... 2/2";
             installState.Value = 66;
 
-            listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) をインストールしました");
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.Arguments = "\"C:\\Program Files\\VistaUpdater\\Update\\kb4474419.msu\" /quiet /norestart";
-            p.EnableRaisingEvents = true;
-            p.SynchronizingObject = this;
-            p.StartInfo.FileName = "wusa.exe";
-            p.Exited += p3_Exited;
-            listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をインストールしています...");
-            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
-            p.Start();
-        }
+            string appName = "WSUSProxied";
+            string appPath = "C:\\Program Files\\VistaUpdaterAfter\\Run_wsus.cmd";
 
-        private void p3_Exited(object sender, EventArgs e)
-        {
-            installState.Value = 96;
-            installStateText.Text = "最終処理を実行中...";
+            // レジストリキーにエントリを追加
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            key.SetValue(appName, appPath);
 
-            listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) をインストールしました");
+            installStateText.Text = "最終処理の実行中...";
+            installState.Value = 100;
+
             label2.Text = "最終処理の実行中...";
-            listBox1.Items.Add("Shellの設定中...");
-            Microsoft.Win32.RegistryKey regkey1 =
-                Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\VistaUpdater");
-            regkey1.SetValue("Restarted", 3, Microsoft.Win32.RegistryValueKind.QWord);
-            regkey1.Close();
-            listBox1.Items.Add("Shellの設定が完了しました");
+            listBox1.Items.Add("Shell を復元中...");
+            Microsoft.Win32.RegistryKey regkey =
+                  Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", true);
+            regkey.SetValue("Shell", "explorer.exe", Microsoft.Win32.RegistryValueKind.String);
+            regkey.SetValue("AutoAdminLogon", 0, Microsoft.Win32.RegistryValueKind.DWord);
+            regkey.DeleteValue("DefaultUserName");
+            regkey.DeleteValue("DefaultPassword");
+            regkey.Close();
+            listBox1.Items.Add("Shell の復元が完了しました");
+            listBox1.Items.Add("ユーザーアカウント: 'VistaUpdater' を削除中...");
+            DirectoryEntry localDirectory = new DirectoryEntry($"WinNT://{Environment.MachineName},computer");
+            DirectoryEntries users = localDirectory.Children;
+            DirectoryEntry user = users.Find("VistaUpdater");
+            users.Remove(user);
+            listBox1.Items.Add("ユーザーアカウント: 'VistaUpdater' を削除しました");
+            listBox1.Items.Add("VistaUpdater の設定を削除、ユーザーアカウント制御を有効にしています...");
+            Microsoft.Win32.Registry.LocalMachine.DeleteSubKeyTree(@"SOFTWARE\VistaUpdater");
+            Microsoft.Win32.RegistryKey regkey2 =
+                Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System");
+            regkey2.SetValue("EnableLUA", 1, Microsoft.Win32.RegistryValueKind.DWord);
+            listBox1.Items.Add("設定の削除とユーザーアカウント制御を有効にしました");
+            listBox1.Items.Add("フォルダを削除中...");
+            try
+            {
+                if (System.IO.Directory.Exists("C:\\Program Files\\VistaUpdater\\Update") & System.IO.Directory.Exists("C:\\Program Files\\VistaUpdater\\Patches"))
+                {
+                    System.IO.Directory.Delete("C:\\Program Files\\VistaUpdater\\Update", true);
+                    System.IO.Directory.Delete("C:\\Program Files\\VistaUpdater\\Patches", true);
+                }
+                else if (System.IO.Directory.Exists("C:\\Program Files\\VistaUpdater\\Patches"))
+                {
+                    System.IO.Directory.Delete("C:\\Program Files\\VistaUpdater\\Patches", true);
+                }
+                else if (System.IO.Directory.Exists("C:\\Program Files\\VistaUpdater\\Update"))
+                {
+                    System.IO.Directory.Delete("C:\\Program Files\\VistaUpdater\\Update", true);
+                }
+                else
+                {
+                    listBox1.Items.Add("フォルダを削除する必要はありません。スキップしました。");
+                }
+            } catch (Exception ex)
+            {
+
+            }
+            listBox1.Items.Add("フォルダの削除に成功しました");
             listBox1.Items.Add("再起動中...");
             label2.Text = "再起動しています...";
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = "shutdown.exe";
-            p.StartInfo.Arguments = "/r /t 10 /c \"VistaUpdater の処理を続行するため、10秒後に再起動します。\"";
+            p.StartInfo.Arguments = "/r /t 10 /c \"VistaUpdater の終了するため、10秒後に再起動します。\"";
             p.Start();
-
-            installStateText.Text = "完了";
-            installState.Value = 100;
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (e.Error != null)
-            {
-                listBox1.Items.Add("Windows Vista 用プラットフォーム更新プログラム補足 (KB2117917) のダウンロードに失敗...");
-            }
-            else
-            {
-                listBox1.Items.Add("Windows Vista 用プラットフォーム更新プログラム補足 (KB2117917) のダウンロードに成功！");
-                u1ended = true;
-            }
-        }
+            listBox1.Items.Add("ダウンロードに成功しました！");
+            listBox1.Items.Add("インストールを開始...");
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.Arguments = "/quiet /install";
+            p.EnableRaisingEvents = true;
+            p.SynchronizingObject = this;
+            p.StartInfo.FileName = "C:\\Program Files\\VistaUpdater\\Update\\vcredist.exe";
+            p.Exited += p_Exited;
 
-        private void Wc2_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) のダウンロードに失敗...");
-            }
-            else
-            {
-                listBox1.Items.Add("Windows Server 2008 用セキュリティ更新プログラム (KB4493730) のダウンロードに成功！");
-                u2ended = true;
-            }
-        }
+            installStateText.Text = "Visual Studio 2012 Visual C++ 再頒布可能パッケージ をインストールしています...";
 
-        private void Wc3_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) のダウンロードに失敗...");
-            }
-            else
-            {
-                listBox1.Items.Add("2019-09 Windows Server 2008 のセキュリティ更新プログラム (KB4474419) のダウンロードに成功！");
-                u3ended = true;
-            }
+            listBox1.Items.Add("Visual Studio 2012 Visual C++ 再頒布可能パッケージ をインストールしています...");
+            listBox1.Items.Add("コマンドの実行: " + p.StartInfo.FileName + " " + p.StartInfo.Arguments);
+            p.Start();
         }
 
         private void RestartedUpdate2_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

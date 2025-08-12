@@ -36,6 +36,7 @@ namespace Win7Updater
                     return;
                 } else
                 {
+                    regkey.DeleteValue("SP1Installed");
                     Application.Run(new StartUpdate());
                 }
 

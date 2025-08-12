@@ -15,8 +15,7 @@ namespace RepairTool
     public partial class Reinstall : Form
     {
         public static bool dlRecovery = false;
-        public static string random = System.Web.Security.Membership.GeneratePassword(6, 1);
-        public static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery-" + random + ".zip";
+        public static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + "VistaUpdater.exe";
         public Reinstall(bool downloading = false)
         {
             dlRecovery = downloading;
@@ -40,7 +39,7 @@ namespace RepairTool
             } else
             {
                 WebClient webClient = new WebClient();
-                Uri uri = new Uri("http://vistaupdater.net/tools/VistaUpdater-v1.3.4.exe");
+                Uri uri = new Uri("http://vistaupdater.net/tools/VistaUpdater.exe");
                 webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
                 webClient.DownloadFileAsync(uri, filePath);
             }
@@ -52,7 +51,7 @@ namespace RepairTool
             {
                 listBox1.Items.Add("VistaUpdater を実行しています...");
                 System.Diagnostics.Process p = new System.Diagnostics.Process();
-                p.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + random + "VistaUpdater.exe";
+                p.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VistaUpdater-Recovery\\" + "VistaUpdater.exe";
                 listBox1.Items.Add("コマンド: " + p.StartInfo.FileName);
                 p.Start();
                 listBox1.Items.Add("VistaUpdater 回復ツールのプロセスを完了しました。");

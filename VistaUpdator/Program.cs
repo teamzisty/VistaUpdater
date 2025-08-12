@@ -54,16 +54,6 @@ namespace VistaUpdater
                         Application.Run(new RestartedUpdate2());
                         return;
                     }
-                    else if (s == 3)
-                    {
-                        Application.Run(new RestartedUpdate3());
-                        return;
-                    }
-                    else if (s == 4)
-                    {
-                        Application.Run(new Final());
-                        return;
-                    }
                 }
                 catch (Exception)
                 {

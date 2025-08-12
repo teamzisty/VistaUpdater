@@ -61,9 +61,15 @@ namespace Win7Updater
                   Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", true);
             regkey.SetValue("Shell", "explorer.exe", Microsoft.Win32.RegistryValueKind.String);
             regkey.SetValue("AutoAdminLogon", 0, Microsoft.Win32.RegistryValueKind.DWord);
-            regkey.DeleteValue("DefaultUserName");
-            regkey.DeleteValue("DefaultPassword");
-            regkey.Close();
+            try
+            {
+                regkey.DeleteValue("DefaultUserName");
+                regkey.DeleteValue("DefaultPassword");
+            } catch (Exception)
+            {
+
+            }
+                regkey.Close();
             listBox1.Items.Add("Shell の復元が完了しました");
             listBox1.Items.Add("ユーザーアカウント: 'Win7Updater' を削除中...");
 

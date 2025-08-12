@@ -187,6 +187,13 @@ namespace Win7Updater
             //Win7Updater: Restart State
             Microsoft.Win32.RegistryKey regkey1 =
                 Microsoft.Win32.Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Win7Updater");
+            try
+            {
+                regkey1.DeleteValue("SP1Installed");
+            } catch (Exception)
+            {
+
+            }
             regkey1.SetValue("Restarted", 1, Microsoft.Win32.RegistryValueKind.DWord);
             regkey1.Close();
 
